@@ -1,0 +1,23 @@
+---
+- name: Set Ip Loopback
+  host: all
+  gather_fact: false
+
+  tasks:
+    - name: Create vlan
+      iso_13_interface:
+        name: {{ item.name }}
+        host: {{ item.host}}
+        state: present
+      with_items:
+        - { number: "10.1.1.1" , name: "loopback 1"}
+        - { number: "10.1.2.1" , name: "loopback 2"}
+        - { number: "10.1.3.1" , name: "loopback 3"}
+    - name: Show loop
+      ios_command:
+        commands:
+          - show ip int br
+      register: show_loop
+
+    - debug: var=show_loop.stdout_lines
+       
