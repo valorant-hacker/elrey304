@@ -1,13 +1,13 @@
 ---
 - name: Set Ip Loopback
-  host: all
+  hosts: all
   gather_fact: false
 
   tasks:
     - name: Create vlan
       iso_13_interface:
         name: {{ item.name }}
-        host: {{ item.host}}
+        ipv4: {{ item.number}}
         state: present
       with_items:
         - { number: "10.1.1.1" , name: "loopback 1"}
