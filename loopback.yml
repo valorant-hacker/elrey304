@@ -1,11 +1,11 @@
 ---
 - name: Set Ip Loopback
   hosts: all
-  gather_fact: false
+  gather_facts: false
 
   tasks:
     - name: Create loopback
-      iso_13_interface:
+      ios_13_interface:
         name: loopback {{ item.number }}
         ipv4: 10.1.{{ item.number }}.1/24
         state: present
